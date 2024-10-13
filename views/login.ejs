@@ -1,0 +1,32 @@
+<%- include('header') -%>
+    <title>Login</title>
+
+    <style>
+        body {
+            background-color: #009B77;
+        }
+        .login-form {
+            background-color: aliceblue;
+            margin-top: 5%;
+        }
+    </style>
+
+
+    <!-- Main Content Area -->
+    <div class="login-form">
+        <h1 class="form-title">Login</h1>
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <form action="/login" method="POST">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required class="form-control">
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required class="form-control">
+    
+            <button type="submit" class="btn submit-button">Login</button>
+        </form>
+    </div>
+    
+    <%- include('footer') -%>

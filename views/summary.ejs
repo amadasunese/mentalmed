@@ -1,0 +1,32 @@
+<%- include('header') -%>
+    <title>Self-Assessment Summary</title>
+
+
+    <section class="assessment-summary container mt-5 d-flex flex-row">
+        <div class="col-md-8">
+            <h2>Self-Assessment Summary</h2>
+    
+            <p>This summary provides an overview of your responses to the self-assessment questions. The self-assessment is designed to help you gain a better understanding of your mental health and identify areas where you may benefit from professional support.</p>
+    
+            <p>Total Questions: <strong><%= analysis.totalQuestions %></strong></p>
+            <p>Number of "Yes" Answers: <strong><%= analysis.yesCount %></strong></p>
+    
+            <% if (analysis.yesCount > 0) { %>
+                <h3>Recommended Specialists:</h3>
+                <ul>
+                    <% analysis.specialists.forEach(function(specialist) { %>
+                        <li><%= specialist %></li>
+                    <% }); %>
+                </ul>
+                <p>Based on your responses, it appears that you may be experiencing some symptoms that are of concerns to you. Consulting with a specialist can provide valuable guidance and support.</p>
+                <p>Use the button below to book an appointment with our specialist. Please be prepared to discuss your symptoms and concerns in detail during your appointment. The specialist will be able to assess your situation and recommend appropriate treatment options.</p>
+                <a href="/book_appointment" class="btn btn-primary">Book an Appointment with a Specialist</a>
+            <% } else { %>
+                <p>Based on your responses, it appears you may not need to see a specialist at this time. However, mental health is an important part of overall well-being. We encourage you to continue learning about mental health and self-care practices. You can visit the <a href="/faq">FAQ</a> for more information or explore our <a href="/services">services</a> page to see what options might be a good fit for you.</p>
+            <% } %>
+        </div>
+        <div class="col-md-4">
+            <img src="/images/consult.jpg" alt="Image of a therapist or counselor" class="img-fluid">
+        </div>
+    </section>
+<%- include('footer') -%>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentalMed - Comprehensive Mental Health Services</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">MentalMed</div>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-toggle">
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+        </label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="/self_assessment">Self Assessment</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+        
+                <% if (user) { %> 
+                    <% if (user.role === 'admin') { %>
+                        <li><a href="/admin_dashboard">Admin Dashboard</a></li>
+                    <% } else if (user.role === 'patient') { %>
+                        <li><a href="/patientDashboard">Patient Dashboard</a></li>
+                    <% } else if (user.role === 'doctor') { %>
+                        <li><a href="/doctorDashboard">Doctor Dashboard</a></li>
+                    <% } %>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                <% } %>
+            </ul>
+        </nav>
+        
+        
+    </header>
+
+    <!-- Main Content Area -->
+    <div class=" container-fluid m-auto">
+        <div class="row">
+            <div class="col-9">
+
+                
+            <!-- Welcome Section -->
+            <section id="welcome" class="text-center py-5">
+                <div class="container">
+                    <h2>Welcome to MentalMed</h2>
+                    <p>Your mental health is our commitment. Explore our range of services designed to support your well-being.</p>
+                </div>
+            </section>
+                <section class="content">
+                    <img src="images/telemedicine.jpg" alt="MentalMed platform overview" class="content-image">
+                    <div class="text-content">
+                        <ul class="features-list">
+                            <li><strong>Online Therapy Sessions:</strong> Connect with licensed mental health professionals for personalized therapy and counseling.</li>
+                            <li><strong>Book Appointments:</strong> Schedule sessions with therapists, psychologists, or counselors at your convenience, 24/7.</li>
+                            <li><strong>Find a Specialist:</strong> Search our network of mental health professionals, tailored to your specific needs.</li>
+                            <li><strong>Mental Health Resources:</strong> Access a wide range of tips and tools to support your mental well-being.</li>
+                            <li><strong>Confidential and Secure:</strong> Your mental health data is handled with the utmost privacy and security.</li>
+                        </ul>
+                    </div>
+                    
+                </section>
+                <div class="action">
+                    <p><strong>Begin your journey to better mental health today</strong> <a href="book-appointment.html" class="cta-link">Book a session now</a></p>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <aside class="sidebar">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search...">
+                        <button type="button" id="search-button">Search</button>
+                    </div>
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <ul>
+                            <li><a href="find_specialist">Find a Specialist</a></li>
+                            <li><a href="book_appointment">Book an Appointment</a></li>
+                            <li><a href="self_assessment">Take a Self Assessment</a></li>
+                            <li><a href="mentalhealthtips">Mental Health Tips</a></li>
+                            <li><a href="therapygroups">Join Group Therapy Sessions</a></li>
+                            <li><a href="supportgroups">Access Online Support Groups</a></li>
+                            <li><a href="#">Explore Mental Health Resources</a></li>
+                            <li><a href="$">Contact Emergency Mental Health Hotlines</a></li>
+                            <li><a href="admin_dashboard">Admin Dashboard</a></li>
+                            <li><a href="doctorDashboard">Doctors Dashboard</a></li>
+                            
+                        </ul>
+                    </ul>
+                </aside>
+            </div>
+
+        </div>
+
+    </div>
+    
+
+    <!-- Core Competence -->
+<section id="core" class="service">
+    <div class="container">
+        <h1>Our Areas of Core Competence</h1>
+        <p>At MentalMed, we specialize in managing anxiety, depression, stress, and other mental health challenges.</p>
+        <div class="core-box">
+            <div class="core">
+                <img src="images/MentalHealthSpecialty.jpg" alt="Mental Health Specialty">
+                <div class="details">
+                    <h4>Mental Health Specialty</h4>
+                    <div class="star">
+                        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="core">
+                <img src="images/anxiety11.jpg" alt="Anxiety Support">
+                <div class="details">
+                    <h4>Anxiety</h4>
+                    <div class="star">
+                        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="core">
+                <img src="images/depression3.jpg" alt="Depression Management">
+                <div class="details">
+                    <h4>Depression</h4>
+                    <div class="star">
+                        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Registration -->
+<section id="registration">
+    <div class="container">
+        <div class="registration-box">
+            <div class="reminder">
+                <h1>Free Mental Health Consultation</h1>
+            </div>
+            <div class="form">
+                <h3>Interested in talking to a therapist?</h3>
+                <h5>Click the button below to take our free Self Assessment Test and receive a 20-minute free consultation.</h5>
+                <a class="cta-button" href="selfassessment.html">Take the Self Assessment Test</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <!-- Testimonials -->
+<section class="testimonials">
+    <div class="container">
+        <h1>TESTIMONIALS</h1>
+        <p class="lead">What our clients and mental health professionals have to say</p>
+        <div class="testimonial-wrapper">
+            <div class="testimonial-col">
+                <img src="images/patient1.jpg" alt="Client Testimonial">
+                <div>
+                    <p>The online therapy sessions have helped me manage my anxiety in ways I never thought possible. The convenience and accessibility are fantastic.</p>
+                    <h3>Jane Doe</h3>
+                </div>
+            </div>
+            <div class="testimonial-col">
+                <img src="images/doctor2.jpg" alt="Therapist Testimonial">
+                <div>
+                    <p>MentalMed's platform allows me to connect with more clients and provide effective therapy. The interface is user-friendly and secure, ensuring the best care for my patients.</p>
+                    <h3>Dr. Emily Smith</h3>
+                </div>
+            </div>
+            <div class="testimonial-col">
+                <img src="images/patient2.png" alt="Client Testimonial">
+                <div>
+                    <p>Booking therapy sessions through MentalMed has made it easy for me to manage my mental health without leaving home. It's been a game-changer.</p>
+                    <h3>Michael Johnson</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-4">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>MentalMed</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Our Programs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="#">Online Therapy</a></li>
+                        <li><a href="#">In-Person Therapy</a></li>
+                        <li><a href="#">Wellness Program</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated on the latest mental health tips and resources.</p>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Your email address">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Copyright Section -->
+    <div class="copyright">
+        &copy; @2024 MentalMed. All rights reserved.
+    </div>
+
+</body>
+</html>

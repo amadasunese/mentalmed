@@ -1,0 +1,128 @@
+/* Container Styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+/* Heading Styling */
+h1, h2 {
+    color: #2c3e50;
+}
+
+h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Styling */
+form {
+    display: grid;
+    gap: 1rem;
+}
+
+input, textarea {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+button {
+    background-color: #1d4ed8;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.4);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+}
+
+thead {
+    background-color: #f3f4f6;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+tbody td {
+    padding: 1rem;
+}
+
+/* Modal Styling */
+#editModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(75, 85, 99, 0.5);
+}
+
+#editModal .bg-white {
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid Layout for Input Fields */
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    button {
+        width: 100%;
+    }
+}

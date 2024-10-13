@@ -1,0 +1,75 @@
+<%- include('header') -%>
+    <title>Admin Dashboard</title>
+    <sty
+
+
+
+        <div class="container mx-auto px-4 py-8">
+            <% if (successMessage) { %>
+            <div class="alert alert-success">
+                <%= successMessage %>
+            </div>
+            <% } %>
+
+            <h1 class="text-3xl font-bold mb-8">Admin Dashboard - Doctor Management</h1>
+    
+            <!-- Add Doctor Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-xl font-semibold mb-4">Add New Doctor</h2>
+                <form action="/registerDoctor" method="POST">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" name="first_name" placeholder="First Name" required class="border p-2 rounded">
+                        <input type="text" name="last_name" placeholder="Last Name" required class="border p-2 rounded">
+                        <input type="text" name="specialization" placeholder="Specialization" required class="border p-2 rounded">
+                        <input type="email" name="email" placeholder="Email" required class="border p-2 rounded">
+                        <input type="tel" name="phone" placeholder="Phone" required class="border p-2 rounded">
+                        <!-- <input type="text" name="username" placeholder="Username" required class="border p-2 rounded"> -->
+                        <input type="password" name="password" placeholder="Password" required class="border p-2 rounded">
+                        <textarea name="schedule" placeholder="Schedule (JSON format)" required class="border p-2 rounded col-span-2"></textarea>
+                    </div>
+                    <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Doctor</button>
+                </form>
+            </div>
+    
+            <!-- Doctors List -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">Doctors List</h2>
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-2 text-left">Name</th>
+                            <th class="p-2 text-left">Specialization</th>
+                            <th class="p-2 text-left">Email</th>
+                            <th class="p-2 text-left">Phone</th>
+                            <th class="p-2 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctorsList">
+                        <!-- Doctors will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <!-- Edit Doctor Modal -->
+        <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white p-8 rounded-lg">
+                <h2 class="text-xl font-semibold mb-4">Edit Doctor</h2>
+                <form id="editForm">
+                    <input type="hidden" id="editDoctorId">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="editFirstName" placeholder="First Name" required class="border p-2 rounded">
+                        <input type="text" id="editLastName" placeholder="Last Name" required class="border p-2 rounded">
+                        <input type="text" id="editSpecialization" placeholder="Specialization" required class="border p-2 rounded">
+                        <input type="tel" id="editPhone" placeholder="Phone" required class="border p-2 rounded">
+                        <textarea id="editSchedule" placeholder="Schedule (JSON format)" required class="border p-2 rounded col-span-2"></textarea>
+                    </div>
+                    <div class="mt-4 flex justify-end">
+                        <button type="button" onclick="closeEditModal()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2">Cancel</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+<%- include('footer') -%>

@@ -1,0 +1,42 @@
+<%- include('header') -%>
+    <title>Manage Appointments | MentalMed</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .appointments-container {
+            margin-top: 50px;
+        }
+        .appointment-card {
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+    <section class="appointments-container container">
+        <h2 class="mb-4">Manage Appointments</h2>
+
+        <% if (appointments.length > 0) { %>
+            <div class="list-group">
+                <% appointments.forEach(function(appointment) { %>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Appointment with <%= appointment.patient_first_name %> <%= appointment.patient_last_name %></h5>
+                            <small><%= appointment.appointment_date %> at <%= appointment.appointment_time %></small>
+                        </div>
+                        <p class="mb-1">Status: <strong><%= appointment.status %></strong></p>
+                        <form action="/doctor/appointments/<%= appointment.id %>/accept" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                        </form>
+                        <form action="/doctor/appointments/<%= appointment.id %>/decline" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                        </form>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p class="text-muted">No pending appointments at the moment.</p>
+        <% } %>
+    </section>
+
+<%- include('footer') -%>

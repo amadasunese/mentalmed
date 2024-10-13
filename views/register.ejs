@@ -1,0 +1,79 @@
+<%- include('header') -%>
+    <title>Register</title>
+
+    <style>
+        body {
+            background-color: #009B77;
+        }
+    </style>
+
+    <!-- Main Content Area -->
+    <div class="registration-form">
+        <h1 class="form-title">Register with MentalMed</h1>
+        <form id="registrationForm" action="/register" onsubmit="return validateForm();" method="POST">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+            <span id="firstNameError" class="error"></span><br>
+    
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required>
+            <span id="lastNameError" class="error"></span><br>
+    
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span><br>
+    
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <span id="phoneError" class="error"></span><br>
+    
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender" required>
+                <option value="" disabled selected hidden>Choose your gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <span id="genderError" class="error"></span><br>
+    
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required>
+            <span id="countryError" class="error"></span><br>
+    
+            <label for="date_of_birth">Date of Birth:</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" required>
+            <span id="dobError" class="error"></span><br>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" class="error"></span><br>
+    
+            <label for="confirmpassword">Confirm Password:</label>
+            <input type="password" id="confirmpassword" name="confirmpassword" required>
+            <span id="confirmpasswordError" class="error"></span><br>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="4" placeholder="Enter any relevant information..."></textarea>
+    
+            <label for="terms">
+                <input type="checkbox" id="terms" name="terms" required>
+                I agree to the terms and conditions
+            </label>
+            <span id="termsError" class="error"></span><br>
+    
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    
+    
+    <div class="form-summary">
+        <div class="confirmation-message" id="confirmationMessage"></div>
+        <h2>Form Summary</h2>
+        <div id="formSummaryContent"></div>
+        
+    </div>
+    
+
+    <script src="js/script.js"></script>
+
+<%- include('footer') -%>

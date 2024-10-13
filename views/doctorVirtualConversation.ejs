@@ -1,0 +1,56 @@
+<%- include('header') -%>
+<title>Virtual Conversations | MentalMed</title>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .conversation-container {
+        margin-top: 50px;
+    }
+    .conversation-option {
+        margin-bottom: 20px;
+    }
+</style>
+
+<section class="conversation-container container">
+    <h2 class="mb-4">Initiate Virtual Conversation</h2>
+
+    <p>Select the mode of communication you would like to use for your conversation with the patient:</p>
+
+    <div class="row">
+        <!-- Phone Call Option -->
+        <div class="col-md-4 conversation-option">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Phone Call</h5>
+                    <p class="card-text">Conduct a conversation over a traditional phone call.</p>
+                    <a href="/doctor/virtual_conversation/phone_call" class="btn btn-primary">Start Phone Call</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Call Option -->
+        <div class="col-md-4 conversation-option">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Video Call</h5>
+                    <p class="card-text">Engage in a face-to-face conversation via video conferencing.</p>
+                    <a href="/doctor/virtual_conversation/video_call" class="btn btn-primary">Start Video Call</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Option -->
+        <div class="col-md-4 conversation-option">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Chat</h5>
+                    <p class="card-text">Have a real-time text-based conversation.</p>
+                    <a href="/doctor/virtual_conversation/chat" class="btn btn-primary">Start Chat</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('footer') -%>

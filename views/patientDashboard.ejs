@@ -1,0 +1,31 @@
+<%- include('header') -%>
+    <title>Patient Dashboard</title>
+
+    <style>
+        body {
+            background-color: #009B77;
+        }
+        .login-form {
+            background-color: aliceblue;
+            margin-top: 5%;
+        }
+    </style>
+
+
+    <div class="dashboard">
+        <h1>Welcome to Your Dashboard</h1>
+        <p>Hello, <%= user.first_name %> <%= user.last_name %>!</p>
+        <ul>
+            <li><a href="/view_appointments">View Appointments</a></li>
+            <li><a href="/book_appointment">Book New Appointment</a></li>
+            <li><a href="/self_assessment">Take Self Assessment</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        
+    </div>
+
+    
+
+    <script src="js/script.js"></script>
+
+<%- include('footer') -%>

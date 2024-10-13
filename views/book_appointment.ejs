@@ -1,0 +1,33 @@
+<%- include('header') -%>
+    <title>Book Appointment</title>
+  
+
+    <div class="main-content">
+        <section class="appointment">
+            <h2>Book an Appointment</h2>
+            <form action="/book" method="POST">
+                <label for="doctor">Select a Specialist:</label>
+                <select id="doctor" name="doctor_id" required>
+                    <option value="" disabled selected hidden>Choose a specialist</option>
+                    <option value="1">Psychologist</option> <!-- Example doctor_id -->
+                    <option value="2">Counselor</option>
+                    <option value="3">Therapist</option>
+                    <option value="4">Clinical Social Worker</option>
+                    <option value="5">General Practitioner</option>
+                </select>
+    
+                <label for="date">Preferred Appointment Date:</label>
+                <input type="date" id="date" name="appointment_date" required>
+    
+                <label for="time">Preferred Time:</label>
+                <input type="time" id="time" name="appointment_time" required>
+    
+                <label for="notes">Additional Notes:</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Enter any relevant information..."></textarea>
+    
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+    </div>
+    
+<%- include('footer') -%>

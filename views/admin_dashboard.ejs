@@ -1,0 +1,135 @@
+<%- include('header') -%>
+    <title>Admin Dashboard | MentalMed</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .dashboard {
+            margin-top: 50px;
+        }
+        .dashboard h1 {
+            margin-bottom: 20px;
+        }
+        .dashboard .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+        .dashboard table {
+            width: 100%;
+        }
+        .dashboard table th, .dashboard table td {
+            padding: 10px;
+            text-align: left;
+        }
+        .dashboard .btn {
+            margin-right: 5px;
+        }
+    </style>
+
+    <div class="container mx-auto px-4 py-8">
+        <% if (successMessage) { %>
+            <div class="alert alert-success">
+                <%= successMessage %>
+            </div>
+            <% } %>
+
+        <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+        <!-- Add Doctor Form -->
+        <div class="form-container">
+            <h2 class="text-xl font-semibold mb-4">Add New Doctor</h2>
+            <form action="/admin/registerDoctor" method="POST">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="first_name" placeholder="First Name" required class="border p-2 rounded">
+                    <input type="text" name="last_name" placeholder="Last Name" required class="border p-2 rounded">
+                    <input type="text" name="specialization" placeholder="Specialization" required class="border p-2 rounded">
+                    <input type="email" name="email" placeholder="Email" required class="border p-2 rounded">
+                    <input type="tel" name="phone" placeholder="Phone" required class="border p-2 rounded">
+                    <input type="password" name="password" placeholder="Password" required class="border p-2 rounded">
+                    <textarea name="schedule" placeholder="Schedule (JSON format)" required class="border p-2 rounded col-span-2"></textarea>
+                </div>
+                <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Doctor</button>
+            </form>
+        </div>
+
+        <!-- Register Admin Form -->
+        <div class="form-container">
+            <h2 class="text-xl font-semibold mb-4">Register New Admin</h2>
+            <form action="/registeradmin" method="POST">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" name="username" placeholder="Username" required class="border p-2 rounded">
+                    <input type="email" name="email" placeholder="Email" required class="border p-2 rounded">
+                    <input type="password" name="password" placeholder="Password" required class="border p-2 rounded">
+                    <select name="role" required class="border p-2 rounded">
+                        <option value="" disabled selected>Select Role</option>
+                        <option value="admin">Admin</option>
+                        <!-- You can add more roles if needed -->
+                    </select>
+                </div>
+                <button type="submit" class="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Register Admin</button>
+            </form>
+        </div>
+
+        <!-- Doctors List -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Doctors List</h2>
+            <table class="w-full">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="p-2 text-left">Name</th>
+                        <th class="p-2 text-left">Specialization</th>
+                        <th class="p-2 text-left">Email</th>
+                        <th class="p-2 text-left">Phone</th>
+                        <th class="p-2 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="doctorsList">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Edit Doctor Modal -->
+    <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg">
+            <h2 class="text-xl font-semibold mb-4">Edit Doctor</h2>
+            <form id="editForm" action="/admin/updateDoctor" method="POST">
+                <input type="hidden" id="editDoctorId" name="id">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" id="editFirstName" name="first_name" placeholder="First Name" required class="border p-2 rounded">
+                    <input type="text" id="editLastName" name="last_name" placeholder="Last Name" required class="border p-2 rounded">
+                    <input type="text" id="editSpecialization" name="specialization" placeholder="Specialization" required class="border p-2 rounded">
+                    <input type="tel" id="editPhone" name="phone" placeholder="Phone" required class="border p-2 rounded">
+                    <textarea id="editSchedule" name="schedule" placeholder="Schedule (JSON format)" required class="border p-2 rounded col-span-2"></textarea>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button type="button" onclick="closeEditModal()" class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2">Cancel</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Function to open the edit modal with doctor details
+        function openEditModal(id, firstName, lastName, specialization, phone, schedule) {
+            document.getElementById('editDoctorId').value = id;
+            document.getElementById('editFirstName').value = firstName;
+            document.getElementById('editLastName').value = lastName;
+            document.getElementById('editSpecialization').value = specialization;
+            document.getElementById('editPhone').value = phone;
+            document.getElementById('editSchedule').value = schedule;
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        // Function to close the edit modal
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+    </script>
+
+<%- include('footer') -%>

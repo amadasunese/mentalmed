@@ -1,0 +1,224 @@
+<%- include('header') -%>
+
+    <title>Self-Assessment</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container-question {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .question {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .question p {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .radio-group {
+            margin-top: 10px;
+        }
+        .radio-group label {
+            margin-right: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+
+    <div class="container-question">
+        <h3>Welcome to the Self-Assessment</h3>
+        <p>Kindly answer the questions to help us serve you better. Your responses will enable us to make recommendations that are best for you.</p>
+    
+        <form method="POST" action="/selfassessmentquiz">
+            <div class="question">
+                <p>Do you often find it difficult to fall asleep?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_0" name="answer_0" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_0" name="answer_0" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you get extremely sweaty palms when you have a big event ahead?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_1" name="answer_1" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_1" name="answer_1" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you find it difficult to speak with your loved ones about situations you are experiencing?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_2" name="answer_2" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_2" name="answer_2" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you feel irritated when people ask you basic questions about yourself?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_3" name="answer_3" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_3" name="answer_3" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you often feel anxious or worried without a clear reason?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_4" name="answer_4" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_4" name="answer_4" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you frequently feel overwhelmed by your daily responsibilities?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_5" name="answer_5" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_5" name="answer_5" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you experience mood swings, moving between feeling very high and very low?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_6" name="answer_6" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_6" name="answer_6" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you often feel fatigued or have low energy, even after sufficient rest?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_7" name="answer_7" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_7" name="answer_7" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Have you ever felt detached from reality, like you're in a dream-like state?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_8" name="answer_8" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_8" name="answer_8" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you have difficulty concentrating or staying focused on tasks?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_9" name="answer_9" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_9" name="answer_9" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you often feel like you are not good enough, even when others praise your achievements?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_10" name="answer_10" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_10" name="answer_10" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <div class="question">
+                <p>Do you frequently avoid social interactions or gatherings because they feel overwhelming?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" id="yes_11" name="answer_11" value="yes" required> Yes
+                    </label>
+                    <label>
+                        <input type="radio" id="no_11" name="answer_11" value="no"> No
+                    </label>
+                </div>
+            </div>
+    
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
+
+<%- include('footer') -%>

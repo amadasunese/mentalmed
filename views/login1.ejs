@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background-color: #009B77;
+        }
+        .login-form {
+            background-color: aliceblue;
+            margin-top: 5%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">MentalMed</div>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-toggle">
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+        </label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/self_assessment">Self Assessment</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+
+                <% if (user) { %> 
+                    <% if (user.role === 'admin') { %>
+                        <li><a href="/admin/dashboard">Admin Dashboard</a></li>
+                    <% } else if (user.role === 'patient') { %>
+                        <li><a href="/patient/dashboard">Patient Dashboard</a></li>
+                    <% } %>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="login-form">
+        <h1 class="form-title">Login</h1>
+        <form action="/login" method="POST" onsubmit="return validateLoginForm();">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email">
+            <span id="emailError" class="error"></span>
+    
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <span id="passwordError" class="error"></span>
+    
+            <button type="submit" class="submit-button">Login</button>
+        </form>
+    </div>
+    
+
+    <script src="js/script.js"></script>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-4">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>TeleMed</h3>
+                    <ul>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="#">Career</a></li>
+                        <li><a href="#">Our Product</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="#">Online Therapy</a></li>
+                        <li><a href="#">In-Person Therapy</a></li>
+                        <li><a href="#">Wellness Program</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Newsletter</h3>
+                    <p>You can trust us to fast-track your healing process.</p>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Your email address">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Copyright Section -->
+    <div class="copyright">
+        &copy; @2024 TeleMed. All rights reserved.
+    </div>
+
+</body>
+</html>

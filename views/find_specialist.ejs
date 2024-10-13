@@ -1,0 +1,28 @@
+<%- include('header') -%>
+    <title>Find a Specialist</title>
+
+
+    <div class="main-content">
+        <section class="find-doctor">
+            <h2>Find a Mental Health Specialist</h2>
+            <form action="search_doctor" method="GET">
+                <label for="specialty">Select Mental Health Specialty:</label>
+                <select id="specialty" name="specialty" required>
+                    <option value="" disabled selected hidden>Choose a specialty</option>
+                    <option value="psychologist">Psychologist</option>
+                    <option value="psychiatrist">Psychiatrist</option>
+                    <option value="counselor">Counselor</option>
+                    <option value="therapist">Therapist</option>
+                    <option value="social_worker">Clinical Social Worker</option>
+                </select>
+    
+                <label for="location">Your Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter your location" required>
+    
+                <button type="submit">Find a Mental Health Specialist</button>
+            </form>
+    
+        </section>
+    </div>
+    
+<%- include('footer') -%>

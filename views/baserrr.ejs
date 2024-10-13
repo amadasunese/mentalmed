@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - MentalMed</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">MentalMed</div>
+        <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+        <label for="menu-toggle" class="menu-toggle">
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+            <span class="menu-icon"></span>
+        </label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="/self_assessment">Self Assessment</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/contact">Contact</a></li>
+
+                <% if (user) { %> 
+                    <% if (user.role === 'admin') { %>
+                        <li><a href="/admin_dashboard">Admin Dashboard</a></li>
+                    <% } else if (user.role === 'patient') { %>
+                        <li><a href="/patientDashboard">Patient Dashboard</a></li>
+                    <% } else if (user.role === 'doctor') { %>
+                        <li><a href="/doctorDashboard">Doctor Dashboard</a></li>
+                    <% } %>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container-fluid m-auto">
+        <div class="row">
+            <div class="col-9">
+                <!-- Content will be injected here -->
+                <%- body %>
+            </div>
+
+            <div class="col-3">
+                <aside class="sidebar">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search...">
+                        <button type="button" id="search-button">Search</button>
+                    </div>
+                    <h2>Quick Links</h2>
+                    <ul>
+                        <li><a href="find_specialist">Find a Specialist</a></li>
+                        <li><a href="book_appointment">Book an Appointment</a></li>
+                        <li><a href="self_assessment">Take a Self Assessment</a></li>
+                        <li><a href="mentalhealthtips">Mental Health Tips</a></li>
+                        <li><a href="therapygroups">Join Group Therapy Sessions</a></li>
+                        <li><a href="supportgroups">Access Online Support Groups</a></li>
+                        <li><a href="#">Explore Mental Health Resources</a></li>
+                        <li><a href="#">Contact Emergency Mental Health Hotlines</a></li>
+                        <li><a href="admin_dashboard">Admin Dashboard</a></li>
+                        <li><a href="doctorDashboard">Doctors Dashboard</a></li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-4">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>MentalMed</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Our Programs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="#">Online Therapy</a></li>
+                        <li><a href="#">In-Person Therapy</a></li>
+                        <li><a href="#">Wellness Program</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated on the latest mental health tips and resources.</p>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Your email address">
+                        <div class="input-group-append">
+                            <button class="btn btn-warning" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright Section -->
+    <div class="copyright">
+        &copy; 2024 MentalMed. All rights reserved.
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

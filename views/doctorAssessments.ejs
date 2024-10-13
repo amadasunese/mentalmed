@@ -1,0 +1,65 @@
+<%- include('header') -%>
+    <title>Patient Assessments | MentalMed</title>
+    <style>
+
+        body {
+            background-color: #f8f9fa;
+        }
+        .assessments-container {
+            margin-top: 50px;
+        }
+        .assessment-card {
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+    <section class="assessments-container container">
+        <h2 class="mb-4">Patient Assessment Records</h2>
+
+        <% if (assessments.length > 0) { %>
+            <div class="accordion" id="assessmentsAccordion">
+                <% assessments.forEach(function(assessment) { %>
+                    <div class="card">
+                        <div class="card-header" id="heading<%= assessment.id %>">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<%= assessment.id %>" aria-expanded="true" aria-controls="collapse<%= assessment.id %>">
+                                    <%= assessment.patient_first_name %> <%= assessment.patient_last_name %> - <%= assessment.assessment_date %>
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapse<%= assessment.id %>" class="collapse" aria-labelledby="heading<%= assessment.id %>" data-parent="#assessmentsAccordion">
+                            <div class="card-body">
+                                <h5>Assessment Details:</h5>
+                                <p><strong>Total Questions:</strong> <%= assessment.total_questions %></p>
+                                <p><strong>Yes Answers:</strong> <%= assessment.yes_count %></p>
+                                <h6>Recommended Specialists:</h6>
+                                <% if (assessment.specialists.length > 0) { %>
+                                    <ul>
+                                        <% assessment.specialists.forEach(function(specialist) { %>
+                                            <li><%= specialist %></li>
+                                        <% }); %>
+                                    </ul>
+                                <% } else { %>
+                                    <p>No specialists recommended.</p>
+                                <% } %>
+                                <h6>Recommendation:</h6>
+                                <p><%= assessment.recommendation %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p class="text-muted">No patient assessments available.</p>
+        <% } %>
+    </section>
+
+   
+
+    <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<%- include('footer') -%>

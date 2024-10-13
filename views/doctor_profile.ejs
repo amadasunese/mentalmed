@@ -1,0 +1,38 @@
+<%- include('header') -%>
+<div class="doctor-profile">
+    <h1>Doctor Profile</h1>
+    <p>Name: <%= doctor.first_name %> <%= doctor.last_name %></p>
+    <p>Specialization: <%= doctor.specialization %></p>
+    <p>Email: <%= doctor.email %></p>
+    <p>Phone: <%= doctor.phone %></p>
+
+    <h2>Schedule</h2>
+    <form action="/doctor/update_schedule" method="POST">
+        <label for="schedule">Schedule:</label>
+        <textarea name="schedule"><%= doctor.schedule %></textarea>
+        <button type="submit">Update Schedule</button>
+    </form>
+
+    <h2>Patients</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% patients.forEach(patient => { %>
+            <tr>
+                <td><%= patient.id %></td>
+                <td><%= patient.first_name %></td>
+                <td><%= patient.last_name %></td>
+                <td><%= patient.date_of_birth %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<%- include('footer') -%>
