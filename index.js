@@ -121,9 +121,11 @@ app.get('/admin_dashboard', ensureAuthenticated, ensureAdmin,  (req, res) => {
     res.render('admin_dashboard'); 
 });
 
-app.get('/healthcenter',  (req, res) => {
-    res.render('healthcenterlocator', { user: req.session.user }); 
-});
+app.get('/healthcenter', (req, res) => {
+    res.render('healthcenterlocator', { user: req.session.user,
+      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
+    });
+  });
 
 
 app.get('/book_appointment', ensureAuthenticated, ensurePatient, async (req, res) => {
