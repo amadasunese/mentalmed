@@ -1,0 +1,26 @@
+<%- include('header') -%>
+    <title>Verify Your Email</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .centered-link {
+          text-align: center;
+          display: block;
+          margin: 20px 0;
+        }
+      </style>
+
+    <div class="container">
+        <h1>Email Verification Required</h1>
+        <p>Please verify your email before logging in.</p>
+        <p>If you haven't received the verification email, you can resend it by clicking the link below:</p>
+        
+        <form action="/resend-verification" method="POST">
+            <input type="hidden" name="email" value="<%= email %>">
+            <button type="submit" class="btn btn-primary">Resend Verification Email</button>
+        </form>
+
+        <div class="centered-link">
+            <a href="/login">Back to Login</a>
+          </div>
+    </div>
+<%- include('footer') -%>

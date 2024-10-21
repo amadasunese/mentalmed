@@ -35,9 +35,9 @@
                                 <p><strong>Total Questions:</strong> <%= assessment.total_questions %></p>
                                 <p><strong>Yes Answers:</strong> <%= assessment.yes_count %></p>
                                 <h6>Recommended Specialists:</h6>
-                                <% if (assessment.specialists.length > 0) { %>
+                                <% if (assessments.length > 0) { %>
                                     <ul>
-                                        <% assessment.specialists.forEach(function(specialist) { %>
+                                        <% assessments.forEach(function(specialist) { %>
                                             <li><%= specialist %></li>
                                         <% }); %>
                                     </ul>

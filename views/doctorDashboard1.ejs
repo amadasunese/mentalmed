@@ -1,0 +1,53 @@
+<%- include('header') -%>
+    <title>Doctor Dashboard | MentalMed</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .dashboard-container {
+            margin-top: 50px;
+        }
+        .dashboard-card {
+            margin-bottom: 20px;
+        }
+    </style>
+
+
+    <section class="dashboard-container container">
+        <h1 class="mb-4">Welcome, Dr. <%= doctor.first_name || 'N/A' %> <%= doctor.last_name || 'N/A' %>!</h1>
+        <div class="row">
+            <!-- View Appointments -->
+            <div class="col-md-4 dashboard-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Manage Appointments</h5>
+                        <p class="card-text">View your scheduled appointments and accept or decline them.</p>
+                        <a href="doctorappointments" class="btn btn-primary">View Appointments</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Assessments -->
+            <div class="col-md-4 dashboard-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">View Patient Assessments</h5>
+                        <p class="card-text">Access and review patient self-assessment records to better understand their needs.</p>
+                        <a href="/assessments" class="btn btn-primary">View Assessments</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Virtual Conversations -->
+            <div class="col-md-4 dashboard-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Virtual Conversations</h5>
+                        <p class="card-text">Initiate virtual conversations with your patients via phone call, video call, or chat.</p>
+                        <a href="/virtual_conversation" class="btn btn-primary">Start Conversation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include('footer') -%>

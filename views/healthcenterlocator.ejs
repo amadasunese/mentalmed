@@ -1,0 +1,302 @@
+<%- include('header') -%>
+    <title>Enhanced Health Center Locator</title>
+    <style>
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+} 
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #34495e;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+select {
+    padding: 10px;
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.container-map {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#map {
+    height: 400px;
+    width: 60%;
+    background-color: #ecf0f1;
+    border: 2px solid #bdc3c7;
+    border-radius: 10px;
+}
+
+#list-view {
+    width: 35%;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #bdc3c7;
+    border-radius: 10px;
+    overflow-y: auto;
+    height: 400px;
+}
+
+#list-view h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+#list-view ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#error-message {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .container-map {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #map, #list-view {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+    </style>
+
+    <h1>Enhanced Health Center Locator</h1>
+    <div>
+        <label for="location-input">Enter a location:</label>
+        <input type="text" id="location-input" placeholder="Enter a location" aria-label="Enter a location">
+        <button onclick="searchLocation()" aria-label="Search for health centers">Search</button>
+        <button onclick="getCurrentLocation()" aria-label="Use current location">Use Current Location</button>
+    </div>
+    <div>
+        <label for="filter-select">Filter by type:</label>
+        <select id="filter-select" onchange="applyFilter()" aria-label="Filter health centers by type">
+            <option value="all">All</option>
+            <option value="hospital">Hospitals</option>
+            <option value="doctor">Doctors</option>
+            <option value="pharmacy">Pharmacies</option>
+        </select>
+    </div>
+    <div id="error-message" role="alert" aria-live="assertive"></div>
+    <div class="container-map">
+        <div id="map" role="application" aria-label="Map showing health center locations"></div>
+        <div id="list-view" aria-live="polite">
+            <h2>Health Centers</h2>
+            <!-- List items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        let map;
+        let service;
+        let infowindow;
+        let markers = [];
+        let allPlaces = [];
+
+        function initMap() {
+            const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 13
+            });
+            infowindow = new google.maps.InfoWindow();
+            service = new google.maps.places.PlacesService(map);
+        }
+
+        function searchLocation() {
+            const input = document.getElementById('location-input').value;
+            const geocoder = new google.maps.Geocoder();
+            
+            geocoder.geocode({ address: input }, function(results, status) {
+                if (status === 'OK' && results[0] && results[0].geometry && results[0].geometry.location) {
+                    map.setCenter(results[0].geometry.location);
+                    searchHealthCenters(results[0].geometry.location);
+                } else {
+                    showError('Geocode was not successful. Please try a different location.');
+                }
+            });
+        }
+
+
+        // function searchLocation() {
+        //     const input = document.getElementById('location-input').value;
+        //     const geocoder = new google.maps.Geocoder();
+        //     geocoder.geocode({ address: input }, function(results, status) {
+        //         if (status === 'OK') {
+        //             map.setCenter(results[0].geometry.location);
+        //             searchHealthCenters(results[0].geometry.location);
+        //         } else {
+        //             showError('Geocode was not successful. Please try a different location.');
+        //         }
+        //     });
+        // }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        map.setCenter(pos);
+                        searchHealthCenters(pos);
+                    },
+                    () => {
+                        showError("Error: The Geolocation service failed.");
+                    }
+                );
+            } else {
+                showError("Error: Your browser doesn't support geolocation.");
+            }
+        }
+
+        function searchHealthCenters(location) {
+            const request = {
+                location: location,
+                radius: '5000',
+                type: ['hospital', 'doctor', 'pharmacy']
+            };
+
+            service.nearbySearch(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    clearResults();
+                    allPlaces = results;
+                    displayResults(results);
+                } else {
+                    showError('No health centers found in this area.');
+                }
+            });
+        }
+
+        function displayResults(places) {
+            const listView = document.getElementById('list-view');
+            places.forEach((place, i) => {
+                createMarker(place);
+                const placeElement = document.createElement('div');
+                placeElement.className = 'health-center';
+                placeElement.innerHTML = `
+                    <h3>${place.name}</h3>
+                    <p>${place.vicinity}</p>
+                    <p>Rating: ${place.rating ? place.rating + '/5' : 'N/A'}</p>
+                    <button onclick="showDetails(${i})" aria-label="Show details for ${place.name}">More Details</button>
+                `;
+                listView.appendChild(placeElement);
+            });
+        }
+
+        function createMarker(place) {
+            if (!place.geometry || !place.geometry.location) return;
+
+            const marker = new google.maps.marker.AdvancedMarkerElement({
+                map,
+                position: place.geometry.location,
+            });
+
+            markers.push(marker);
+
+            google.maps.event.addListener(marker, "click", () => {
+                service.getDetails(
+                    { placeId: place.place_id },
+                    (placeResult, statusDetails) => {
+                        if (statusDetails === google.maps.places.PlacesServiceStatus.OK) {
+                            let content = `<strong>${placeResult.name}</strong><br>`;
+                            content += `Address: ${placeResult.formatted_address}<br>`;
+                            if (placeResult.formatted_phone_number) {
+                                content += `Phone: ${placeResult.formatted_phone_number}<br>`;
+                            }
+                            if (placeResult.website) {
+                                content += `Website: <a href="${placeResult.website}" target="_blank">${placeResult.website}</a><br>`;
+                            }
+                            infowindow.setContent(content);
+                            infowindow.open(map, marker);
+                        }
+                    }
+                );
+            });
+        }
+
+        function showDetails(index) {
+            google.maps.event.trigger(markers[index], 'click');
+        }
+
+        function clearResults() {
+            const listView = document.getElementById('list-view');
+            listView.innerHTML = '<h2>Health Centers</h2>';
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+        }
+
+        function applyFilter() {
+            const filterValue = document.getElementById('filter-select').value;
+            let filteredPlaces = allPlaces;
+            if (filterValue !== 'all') {
+                filteredPlaces = allPlaces.filter(place => place.types.includes(filterValue));
+            }
+            clearResults();
+            displayResults(filteredPlaces);
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.textContent = message;
+            setTimeout(() => {
+                errorDiv.textContent = '';
+            }, 5000);
+        }
+    </script>
+
+    <!-- Replace YOUR_API_KEY with your actual Google Maps API key -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vzXzMwWFu5_WWN1nIFz4kH9P6oI66mE=places&callback=initMap" async defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7vzXzMwWFu5_WWN1nIFz4kH9P6oI66mE&libraries=places&callback=initMap" async defer></script>
+
+
+
+    <%- include('footer') -%>

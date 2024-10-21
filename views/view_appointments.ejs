@@ -2,12 +2,9 @@
     <title>Appointment</title>
 
     <style>
-        body {
-            background-color: #009B77;
-        }
-        .login-form {
-            background-color: aliceblue;
-            margin-top: 5%;
+        
+        .appointments-page {
+            margin-bottom: 8%;
         }
     </style>
 
@@ -37,7 +34,6 @@
                             <td><%= appointment.appointment_date %></td>
                             <td><%= appointment.appointment_time %></td>
                             <td><%= appointment.status %></td>
-                            <!-- <td><%= appointment.feedback ? appointment.feedback : 'No feedback yet' %></td> -->
                             <td>
                                 <!-- Update Appointment Form -->
                                 <form action="/update_appointment" method="POST">
@@ -46,7 +42,7 @@
                                     <input type="time" name="appointment_time" value="<%= appointment.appointment_time %>">
                                     <button type="submit">Update</button>
                                 </form>
-    
+                
                                 <!-- Cancel Appointment -->
                                 <form action="/cancel_appointment/<%= appointment.id %>" method="POST">
                                     <button type="submit">Cancel</button>
@@ -55,6 +51,7 @@
                         </tr>
                     <% }); %>
                 </tbody>
+                
             </table>
         <% } else { %>
             <p>You have no appointments booked yet.</p>

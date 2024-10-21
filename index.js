@@ -11,6 +11,7 @@ const adminregRoutes = require('./routes/adminregRoute');
 const authRoutes = require('./routes/authRoutes');
 const flash = require('connect-flash');
 const { ensureAuthenticated, ensureDoctor, ensurePatient, ensureAdmin } = require('./middleware/authMiddleware');
+// const sendVerificationEmail = require('./config/email');
 
 
 const db = require('./config/db');
@@ -53,9 +54,15 @@ app.get('/', (req, res) => {
 app.use(flash());
 
 // Make flash messages accessible in all views
+// app.use((req, res, next) => {
+//   res.locals.successMessage = req.flash('successMessage');
+//   next();
+// });
+
 app.use((req, res, next) => {
-  res.locals.successMessage = req.flash('successMessage');
-  next();
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next();
 });
 
 // Set EJS as the view engine
@@ -71,20 +78,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', adminRoutes);
 app.use('/', authRoutes);
 
-
-// app.get('/logout', (req, res) => {
-//     req.session.destroy((err) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         res.redirect('/login');
-//       }
-//     });
-//   });
-
+// routes
 app.get('/register', (req, res) => {
     res.render('register', { user: req.session.user })
 });
+
 
 app.get('/contact', (req, res) => {
     res.render('contact', { user: req.session.user })
@@ -93,7 +91,6 @@ app.get('/contact', (req, res) => {
 app.get('/faq', (req, res) => {
     res.render('faq', { user: req.session.user })
 });
-
 
 app.get('/find_specialist', (req, res) => {
     res.render('find_specialist', { user: req.session.user })
@@ -121,17 +118,57 @@ app.get('/supportgroups', (req, res) => {
 });
 
 app.get('/admin_dashboard', ensureAuthenticated, ensureAdmin,  (req, res) => {
-    res.render('admin_dashboard');
-    
+    res.render('admin_dashboard'); 
 });
 
-// Routes
+app.get('/healthcenter',  (req, res) => {
+    res.render('healthcenterlocator', { user: req.session.user }); 
+});
+
+
+app.get('/book_appointment', ensureAuthenticated, ensurePatient, async (req, res) => {
+    try {
+        // Fetch doctors from the database
+        const [doctors] = await db.query('SELECT id, first_name, last_name, specialization FROM doctors');
+
+        res.render('book_appointment', { user: req.session.user, doctors });
+    } catch (error) {
+        console.error('Error fetching doctors:', error);
+        res.status(500).send('Failed to fetch doctors');
+    }
+});
+
+  
+  
+
+  app.get('/doctor/appointments/accept/:id', (req, res) => {
+    const appointmentId = req.params.id;
+  
+    const query = `UPDATE appointments SET status = 'accepted' WHERE id = ?`;
+  
+    db.query(query, [appointmentId], (err, result) => {
+      if (err) {
+        console.error('Error accepting appointment:', err);
+        return res.status(500).send('Error accepting appointment');
+      }
+      // Redirect back to the doctor's dashboard after accepting the appointment
+      res.redirect('back');
+    });
+  });
+
+  app.get('/registration-success', (req, res) => {
+    res.render('registrationSuccess');
+});
+
+
+
+// Initialise th routes
 
 app.use('/', assessmentRoutes);
 app.use('/',  patientRoutes);
 app.use('/',  doctorRoutes);
 app.use('/', appointmentsRoutes);
-app.use('/', ensureAdmin, adminregRoutes);
+app.use('/', adminregRoutes);
 
 
 // Start server

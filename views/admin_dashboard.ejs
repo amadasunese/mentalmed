@@ -30,18 +30,24 @@
     </style>
 
     <div class="container mx-auto px-4 py-8">
-        <% if (successMessage) { %>
+        <% if (success_msg) { %>
             <div class="alert alert-success">
-                <%= successMessage %>
+              <%= success_msg %>
             </div>
-            <% } %>
+          <% } %>
+          
+          <% if (error_msg) { %>
+            <div class="alert alert-danger">
+              <%= error_msg %>
+            </div>
+          <% } %>
 
         <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
 
         <!-- Add Doctor Form -->
         <div class="form-container">
             <h2 class="text-xl font-semibold mb-4">Add New Doctor</h2>
-            <form action="/admin/registerDoctor" method="POST">
+            <form action="/registerDoctor" method="POST">
                 <div class="grid grid-cols-2 gap-4">
                     <input type="text" name="first_name" placeholder="First Name" required class="border p-2 rounded">
                     <input type="text" name="last_name" placeholder="Last Name" required class="border p-2 rounded">
@@ -97,7 +103,7 @@
     <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg">
             <h2 class="text-xl font-semibold mb-4">Edit Doctor</h2>
-            <form id="editForm" action="/admin/updateDoctor" method="POST">
+            <form id="editForm" action="/updateDoctor" method="POST">
                 <input type="hidden" id="editDoctorId" name="id">
                 <div class="grid grid-cols-2 gap-4">
                     <input type="text" id="editFirstName" name="first_name" placeholder="First Name" required class="border p-2 rounded">

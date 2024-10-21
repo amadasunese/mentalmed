@@ -241,6 +241,7 @@ header .logo {
 .registration-form form {
     display: flex;
     flex-direction: column;
+    gap: 1px;
 }
 
 .registration-form label {
@@ -308,66 +309,144 @@ header .logo {
 }
 
 /* Style for login page */
-.login-form {
-    margin-top: 10%;
-    width: 35%;
-    margin: auto;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10%;
-    
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.login-form h1 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #333;
 }
 
-.login-form form {
-    display: flex;
-    flex-direction: column;
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
-.login-form label {
-    margin-top: 1rem;
-}
-
-.login-form input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.login-form button {
-    padding: 0.5rem;
-    background-color: #007BFF;
-    color: white;
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #009B77;
     border: none;
-    border-radius: 4px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 1rem;
 }
 
-.login-form button:hover {
-    background-color: #0056b3;
+.btn:hover {
+    background-color: #007f62;
 }
 
+.form-check-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0px;
+    margin-bottom: 10px;
+    margin-right: 2px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    margin-left: 2px;
+}
+
+.form-check input[type="checkbox"] {
+    margin-right: 2px;
+    padding: 50x;
+}
+
+.form-check label {
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+
+
+
+
+.register-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register-link a {
+    color: #009B77;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Media Query for Mobile Devices */
+@media screen and (max-width: 600px) {
+    .login-container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .form-title {
+        font-size: 20px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+}
 
 /* second footer */
 
-footer{
+/* footer{
     padding: 2px;
     background-color: #0f022e;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
-}
+} */
+
+footer {
+    padding: 2px;
+    background-color: #0f022e;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
 
 footer .footer-col{
-    padding-bottom: 40px;
+    padding-bottom: 10px;
 }
 
 footer h3{
@@ -463,6 +542,11 @@ footer .copyright.pro-links i:hover{
    text-align: center;
    padding: 10px 0;
    font-size: 14px;
+   /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 /* Testimonials Section */
@@ -604,10 +688,12 @@ footer .copyright.pro-links i:hover{
 
 /* Registration Section */
 .registration-form {
-    padding: 60px 20px;
-    background-color: #f0f4f8;
-    margin-top: 5%;
-    width: 35%;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
 }
 
 .registration-box {
@@ -644,7 +730,6 @@ footer .copyright.pro-links i:hover{
     background-color: #0056b3;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .core-box {
         flex-direction: column;
@@ -669,12 +754,25 @@ footer .copyright.pro-links i:hover{
         max-width: 100%;
         margin-bottom: 20px;
     }
+} */
+
+/* body {
+    background-color: #009B77;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+
+@media (max-width: 600px) {
+    .registration-form {
+        width: 90%;
+    }
 }
 
 
 /* Style for appointment page */
 
-.appointment {
+/* .appointment {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
@@ -723,6 +821,104 @@ footer .copyright.pro-links i:hover{
       padding: 10px;
     }
   
+  } */
+/* 
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  } */
+
+  .main-content-appointment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .appointment {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    color: #555;
+    font-weight: bold;
+  }
+  
+  select, input[type="date"], input[type="time"], button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  .flash-message {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffdddd;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .appointment {
+      padding: 20px;
+      max-width: 90%;
+    }
+  
+    h2 {
+      font-size: 24px;
+    }
+  
+    label, select, input, button {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .appointment {
+      padding: 15px;
+    }
+  
+    button {
+      font-size: 14px;
+    }
   }
 
   /* find specialist page style */
@@ -829,7 +1025,7 @@ footer .copyright.pro-links i:hover{
     text-decoration: none;
     font-size: 1.1rem;
     color: #fff;
-    background-color: #4CAF50; /* Green background */
+    background-color: #4CAF50;
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -837,7 +1033,7 @@ footer .copyright.pro-links i:hover{
 
 /* Link hover effect */
 .dashboard ul li a:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
 /* Responsive design for mobile */

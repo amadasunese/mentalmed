@@ -1,5 +1,7 @@
-// Helper function to analyze responses
-function analyzeResponses(answers) {  // Corrected here
+const db = require('../config/db');
+
+// Function to analyze responses
+function analyzeResponses(answers) {
     let yesCount = 0;
     const yesIndices = [];
 
@@ -53,7 +55,7 @@ function analyzeResponses(answers) {  // Corrected here
     };
 };
 
-// Function to handle self-assessment form submission
+
 exports.handleSelfAssessment = async (req, res) => {
     // Log the received form data for debugging
     console.log('Self-Assessment Form Data:', req.body);
@@ -72,10 +74,25 @@ exports.handleSelfAssessment = async (req, res) => {
     // Store the analysis in the session if needed
     req.session.assessment = analysis;
 
-    res.render('summary', {
-        analysis,
-        user: req.session.user || null
-    });
+    const assessmentData = {
+        assessment_date: new Date(),
+        answers: JSON.stringify(answers),
+        patient_id: req.session.user ? req.session.user.id : null
+    };
 
+    try {
+        // Insert assessment data into the database
+        await db.query('INSERT INTO assessments (assessment_date, answers, patient_id) VALUES (?, ?, ?)', 
+            [assessmentData.assessment_date, assessmentData.answers, assessmentData.patient_id]);
+
+        console.log('Assessment successfully saved to the database');
+
+        res.render('summary', {
+            analysis,
+            user: req.session.user || null
+        });
+    } catch (error) {
+        console.error('Error saving assessment to the database:', error);
+        res.status(500).send('Error processing assessment');
+    }
 };
-

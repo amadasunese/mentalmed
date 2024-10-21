@@ -1,0 +1,37 @@
+<%- include('header') -%>
+<title>Registration Successful</title>
+
+<style>
+    body {
+        /* background-color: #009B77; */
+        color: black;
+        text-align: center;
+        padding: 2px;
+    }
+
+    /* body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+} */
+
+    .message {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .login-link {
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="registration-success">
+    <h1>Registration Successful!</h1>
+    <p class="message">You have been successfully registered.</p>
+    <p>A verification link has been sent to your email address. Please check your inbox and verify your email before logging in.</p>
+    <p>If you have already verified your account, you can <a href="/login" class="login-link">click here to login</a>.</p>
+</div>
+
+<%- include('footer') -%>

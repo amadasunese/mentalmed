@@ -3,21 +3,16 @@ const router = express.Router();
 const doctorController = require('../controllers/doctorController');
 const { ensureAuthenticated, ensureDoctor } = require('../middleware/authMiddleware');
 
-// Apply authentication and authorization middleware to all doctor routes
-// router.use(ensureAuthenticated);
-// router.use(ensureDoctor);
-// router.use(ensureRole);
 
-// Doctor Dashboard
-router.get('/dashboard', doctorController.getDoctorDashboard);
+router.get('/doctorDashboard', ensureDoctor, doctorController.getDoctorDashboard);
 
-// Accept an Appointment
-router.post('/appointments/:id/accept', doctorController.acceptAppointment);
+// Update Doctor Information
+router.post('/dashboard/update', ensureDoctor, doctorController.updateDoctorInfo);
 
-router.get('/doctorappointments', doctorController.getDoctorAppointments);
+router.get('/appointments/:id/accept', ensureDoctor, doctorController.acceptAppointment);
 
 // View Patient Assessments
-router.get('/assessments', doctorController.getPatientAssessments);
+router.get('/assessments', ensureDoctor, doctorController.getPatientAssessments);
 
 // Start Virtual Conversation
 router.get('/virtual_conversation/:patientId', doctorController.startVirtualConversation);

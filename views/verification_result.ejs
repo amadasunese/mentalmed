@@ -1,0 +1,61 @@
+<%- include('header') -%>
+<title>Email Verification</title>
+
+<style>
+    .main-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .verification-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .success-message {
+        color: green;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .login-link {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .login-link a {
+        color: #009B77;
+        text-decoration: none;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="verification-container">
+    <% if (verificationSuccess) { %>
+        <div class="success-message">Email verified successfully. You can now <a href="/login">log in</a>.</div>
+    <% } else { %>
+        <div class="error-message">Invalid or expired verification link, or email already verified.</div>
+    <% } %>
+
+    <div class="login-link">
+        <a href="/login">Go to Login Page</a>
+    </div>
+</div>
+
+<%- include('footer') -%>

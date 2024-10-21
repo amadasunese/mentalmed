@@ -1,0 +1,13 @@
+<%- include('header') -%>
+    <title>Verification Email Sent</title>
+    <link rel="stylesheet" href="/path/to/your/css/styles.css">
+
+    <div class="container">
+        <h1>Verification Email Sent</h1>
+        <p>A verification email has been sent to <strong><%= email %></strong>.</p>
+        <p>Please check your inbox (and your spam folder) and click on the verification link to complete your registration.</p>
+        <p>If you still haven't received the email, please try resending or contact support for further assistance.</p>
+
+        <a href="/login" class="btn btn-primary">Back to Login</a>
+    </div>
+<%- include('footer') -%>
