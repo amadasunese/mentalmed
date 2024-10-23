@@ -11,8 +11,6 @@ const adminregRoutes = require('./routes/adminregRoute');
 const authRoutes = require('./routes/authRoutes');
 const flash = require('connect-flash');
 const { ensureAuthenticated, ensureDoctor, ensurePatient, ensureAdmin } = require('./middleware/authMiddleware');
-// const sendVerificationEmail = require('./config/email');
-
 
 const db = require('./config/db');
 const bcrypt = require('bcryptjs');
@@ -23,7 +21,6 @@ const app = express();
 // Middleware for parsing request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 
 
@@ -52,12 +49,6 @@ app.get('/', (req, res) => {
 
 
 app.use(flash());
-
-// Make flash messages accessible in all views
-// app.use((req, res, next) => {
-//   res.locals.successMessage = req.flash('successMessage');
-//   next();
-// });
 
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
@@ -121,12 +112,37 @@ app.get('/admin_dashboard', ensureAuthenticated, ensureAdmin,  (req, res) => {
     res.render('admin_dashboard'); 
 });
 
+
 app.get('/healthcenter', (req, res) => {
     res.render('healthcenterlocator', { user: req.session.user,
       googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY
     });
   });
+  
 
+  app.post('/acceptappointment/:id', async (req, res) => {
+    const appointmentId = req.params.id;
+    const doctorId = req.session.user.id;
+
+    const updateQuery = 'UPDATE appointments SET status = ? WHERE id = ? AND doctor_id = ?';
+
+    try {
+        // Update the appointment status to 'accepted'
+        const [result] = await db.query(updateQuery, ['accepted', appointmentId, doctorId]);
+
+        if (result.affectedRows > 0) {
+            return res.json({ success: true, message: 'Appointment accepted successfully.' });
+        } else {
+            return res.status(400).json({ success: false, message: 'Failed to accept appointment.' });
+        }
+
+    } catch (error) {
+        console.error('Error updating appointment status:', error);
+        return res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+  
 
 app.get('/book_appointment', ensureAuthenticated, ensurePatient, async (req, res) => {
     try {
@@ -140,28 +156,14 @@ app.get('/book_appointment', ensureAuthenticated, ensurePatient, async (req, res
     }
 });
 
-  
-  
 
-  app.get('/doctor/appointments/accept/:id', (req, res) => {
-    const appointmentId = req.params.id;
-  
-    const query = `UPDATE appointments SET status = 'accepted' WHERE id = ?`;
-  
-    db.query(query, [appointmentId], (err, result) => {
-      if (err) {
-        console.error('Error accepting appointment:', err);
-        return res.status(500).send('Error accepting appointment');
-      }
-      // Redirect back to the doctor's dashboard after accepting the appointment
-      res.redirect('back');
-    });
-  });
-
-  app.get('/registration-success', (req, res) => {
+app.get('/registration-success', (req, res) => {
     res.render('registrationSuccess');
 });
 
+app.get('/profile', (req, res) => {
+    res.render('profile', { user: req.session.user });
+});
 
 
 // Initialise th routes

@@ -48,149 +48,23 @@ function validateForm() {
 }
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const form = document.getElementById('registrationForm');
-//     const formSummaryContent = document.getElementById('formSummaryContent');
-//     const formSummarySection = document.querySelector('.form-summary');
-//     const confirmationMessage = document.getElementById('confirmationMessage');
-    
-
-//     const formData = {};
-
-    // Fields to track
-    // const fields = ['first_name', 'last_name', 'email', 'phone', 'gender', 'country', 'date_of_birth', 'password', 'confirmpassword', 'address', 'terms'];
-
-    // fields.forEach(field => {
-    //     const inputElement = document.getElementById(field);
-    //     inputElement.addEventListener('input', function () {
-    //         captureData(field, inputElement);
-    //     });
-    // });
-
-    // Handle form submission
-    // form.addEventListener('submit', function (event) {
-    //     event.preventDefault();
-    //     if (validateForm()) {
-    //         displayFormSummary();
-    //         displayConfirmation();
-    //     }
-    // });
-
-    // Function to capture data from form fields
-    // function captureData(field, inputElement) {
-    //     if (inputElement.type === 'checkbox') {
-    //         formData[field] = inputElement.checked ? 'Agreed' : 'Not agreed';
-    //     } else {
-    //         formData[field] = inputElement.value;
-    //     }
-    // }
-
     // Function to display the captured form data in the summary section
-    // function displayFormSummary() {
-    //     formSummaryContent.innerHTML = '';
-    //     Object.keys(formData).forEach(key => {
-    //         let displayValue = formData[key];
+    function displayFormSummary() {
+        formSummaryContent.innerHTML = '';
+        Object.keys(formData).forEach(key => {
+            let displayValue = formData[key];
 
             // Mask passwords with '***'
-    //         if (key === 'password' || key === 'confirmpassword') {
-    //             displayValue = '***';
-    //         }
+            if (key === 'password' || key === 'confirmpassword') {
+                displayValue = '***';
+            }
 
-    //         formSummaryContent.innerHTML += `<p><strong>${key}:</strong> ${displayValue}</p>`;
-    //     });
-    //     formSummarySection.style.display = 'block';
-    // }
+            formSummaryContent.innerHTML += `<p><strong>${key}:</strong> ${displayValue}</p>`;
+        });
+        formSummarySection.style.display = 'block';
+    }
 
-    // Form validation function
-    // function validateForm() {
-    //     let isValid = true;
-
-        // Clear all error messages
-        // fields.forEach(field => {
-        //     document.getElementById(field + 'Error').textContent = '';
-        // });
-
-        // // First Name validation
-        // if (!formData.first_name) {
-        //     document.getElementById('nameError').textContent = 'Name is required';
-        //     isValid = false;
-        // }
-
-    //      // Last_Name validation
-    //      if (!formData.last_name) {
-    //         document.getElementById('nameError').textContent = 'Name is required';
-    //         isValid = false;
-    //     }
-
-    //     // Email validation
-    //     if (!formData.email || !validateEmail(formData.email)) {
-    //         document.getElementById('emailError').textContent = 'Invalid email address';
-    //         isValid = false;
-    //     }
-
-    //     // Phone validation
-    //     if (!formData.phone) {
-    //         document.getElementById('phoneError').textContent = 'Phone number is required';
-    //         isValid = false;
-    //     }
-
-    //     // Gender validation
-    //     if (!formData.gender) {
-    //         document.getElementById('genderError').textContent = 'Gender is required';
-    //         isValid = false;
-    //     }
-
-    //     // Country validation
-    //     if (!formData.country) {
-    //         document.getElementById('countryError').textContent = 'Country is required';
-    //         isValid = false;
-    //     }
-
-    //     // Date of birth validation
-    //     if (!formData.date_of_birth) {
-    //         document.getElementById('ageError').textContent = 'Date of birth is required';
-    //         isValid = false;
-    //     }
-
-    //     // Password validation
-    //     if (!formData.password) {
-    //         document.getElementById('passwordError').textContent = 'Password is required';
-    //         isValid = false;
-    //     }
-
-    //     // Confirm password validation
-    //     if (formData.password !== formData.confirmpassword) {
-    //         document.getElementById('confirmpasswordError').textContent = 'Passwords do not match';
-    //         isValid = false;
-    //     }
-
-    //     // address validation
-    //     if (formData.address !== formData.confirmpassword) {
-    //         document.getElementById('confirmpasswordError').textContent = 'Passwords do not match';
-    //         isValid = false;
-    //     }
-
-    //     // Terms validation
-    //     if (!document.getElementById('terms').checked) {
-    //         document.getElementById('termsError').textContent = 'You must agree to the terms';
-    //         isValid = false;
-    //     }
-
-    //     return isValid;
-    // }
-
-    // // Email validation function
-    // function validateEmail(email) {
-    //     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return re.test(email);
-    // }
-
-    // Display confirmation message upon successful form submission
-    // function displayConfirmation() {
-    //     confirmationMessage.textContent = 'Form submitted successfully! Below are the summary of your the details you submitted';
-    // }
-// });
-
+    
 
 // appointment booking form validation
 
@@ -314,57 +188,23 @@ function validateForm() {
 //     return valid;
 //   }
 
-//   // faq page
+  // faq page
 
-//   document.querySelectorAll('.faq-header').forEach(item => {
-//     item.addEventListener('click', event => {
-//         // Toggle active class
-//         item.classList.toggle('active');
+  document.querySelectorAll('.faq-header').forEach(item => {
+    item.addEventListener('click', event => {
+        // Toggle active class
+        item.classList.toggle('active');
 
-//         // Find the next sibling element (faq-body)
-//         let body = item.nextElementSibling;
-//         if (body.style.display === 'block') {
-//             body.style.display = 'none';
-//         } else {
-//             body.style.display = 'block';
-//         }
-//     });
-// });
+        // Find the next sibling element (faq-body)
+        let body = item.nextElementSibling;
+        if (body.style.display === 'block') {
+            body.style.display = 'none';
+        } else {
+            body.style.display = 'block';
+        }
+    });
+});
 
-
-
-// async function fetchDoctors() {
-//     try {
-//         const response = await fetch('/getAllDoctors');
-//         const doctors = await response.json();
-
-//         const doctorsList = document.getElementById('doctorsList');
-//         doctorsList.innerHTML = '';
-
-//         if (doctors.length > 0) {
-//         doctors.forEach(doctor => {
-//             doctorsList.innerHTML += `
-//             <tr>
-//                 <td class="p-2">${doctor.first_name} ${doctor.last_name}</td>
-//                 <td class="p-2">${doctor.specialization}</td>
-//                 <td class="p-2">${doctor.email}</td>
-//                 <td class="p-2">${doctor.phone}</td>
-//                 <td class="p-2">
-//                 <button onclick="openEditModal(${doctor.id})" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2">Edit</button>
-//                 <button onclick="deleteDoctor(${doctor.id})" class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
-//                 </td>
-//             </tr>
-//             `;
-//         });
-//         } else {
-//         // Handle empty doctor list (e.g., display message, loading indicator)
-//         doctorsList.innerHTML = '<p>No doctors found.</p>';
-//         }
-//     } catch (error) {
-//         console.error('Error fetching doctors:', error);
-       
-//     }
-//     }
 
 
 async function fetchDoctors() {
@@ -484,3 +324,7 @@ async function fetchDoctors() {
 
 // // Call the getUserInfo function when the page loads
 // window.addEventListener('load', getUserInfo);
+
+
+// doctors accepting appointment
+

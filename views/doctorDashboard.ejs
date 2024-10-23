@@ -1,5 +1,12 @@
 <%- include('header') -%>
+<style>
+  .accepted {
+    background-color: #6c757d;
+    color: white;
+    cursor: not-allowed;
+}
 
+</style>
 <h1>Doctor Dashboard</h1>
 
 <h2>Doctor Information</h2>
@@ -31,7 +38,11 @@
           <td><%= appointment.patient_first_name %> <%= appointment.patient_last_name %></td>
           <td><%= appointment.patient_email %></td>
           <td>
-            <a href="/doctor/appointments/accept/<%= appointment.id %>">Accept</a>
+            <% if (appointment.status === 'accepted') { %>
+              <span>Accepted</span>
+            <% } else { %>
+              <button class="accept-btn" data-id="<%= appointment.id %>">Accept</button>
+            <% } %>
           </td>
         </tr>
       <% } %>
@@ -41,15 +52,66 @@
   <p>No upcoming appointments at the moment.</p>
 <% } %>
 
-<a href="/appointments">View All Appointments</a>
-<a href="/assessments">View Patient Assessments</a>
-<a href="/virtual-conversation/:patientId">Start Virtual Conversation</a>
+<a href="/appointments" style="display: inline-block; padding: 10px 20px; margin: 5px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease;">View All Appointments</a>
+
+<a href="/assessments" style="display: inline-block; padding: 10px 20px; margin: 5px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease;">View Patient Assessments</a>
+
+<a href="/virtual-conversation/:patientId" style="display: inline-block; padding: 10px 20px; margin: 5px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s ease;">Start Virtual Conversation</a>
+
 
 <script>
 function showUpdateDoctorInfo() {
   // Implement logic to show a form for updating doctor information
   // This could involve dynamically adding HTML to the page or redirecting to a separate update page
 }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all accept buttons
+    const acceptButtons = document.querySelectorAll('.accept-btn');
+
+    // Ensure we attach click event listeners to all buttons
+    acceptButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const appointmentId = this.getAttribute('data-id');
+            const buttonElement = this;
+
+            // Disable the button immediately to prevent multiple clicks
+            buttonElement.disabled = true;
+            buttonElement.innerText = 'Accepting...';
+
+            // Send an AJAX POST request to accept the appointment
+            fetch(`/acceptappointment/${appointmentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log(response);
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+
+                if (data.success) {
+                    buttonElement.innerText = 'Accepted';
+                    buttonElement.classList.add('accepted');
+                } else {
+                    alert(data.message || 'Error accepting the appointment.');
+                    buttonElement.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                alert('An error occurred while accepting the appointment.');
+                buttonElement.disabled = false;
+            });
+        });
+    });
+});
+
 </script>
 
 <%- include('footer') -%>

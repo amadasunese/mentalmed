@@ -4,7 +4,7 @@ const db = require('../config/db');
 
 exports.getDoctorDashboard = async (req, res) => {
     try {
-        const doctorId = req.session.user;
+        const doctorId = req.session.user.id;
 
         // Fetch doctor information
         const [doctorRows] = await db.query(
@@ -13,7 +13,8 @@ exports.getDoctorDashboard = async (req, res) => {
             FROM 
                 doctors
             WHERE 
-                id = id`,
+                id = ?`,
+            [doctorId]
            
         );
         const doctor = doctorRows[0] || null;
@@ -25,18 +26,21 @@ exports.getDoctorDashboard = async (req, res) => {
         // Fetch upcoming appointments for the doctor
         const [appointments] = await db.query(
             `SELECT 
-                id,
-                patient_id,
-                appointment_date,
-                appointment_time
+                appointments.id, 
+                appointments.appointment_date, 
+                appointments.appointment_time, 
+                appointments.status,
+                patients.first_name AS patient_first_name, 
+                patients.last_name AS patient_last_name, 
+                patients.email AS patient_email 
             FROM 
-                appointments
+                appointments 
+            JOIN 
+                patients 
+            ON 
+                appointments.patient_id = patients.id 
             WHERE 
-                doctor_id = id
-                AND appointment_date >= CURRENT_DATE
-            ORDER BY 
-                appointment_date ASC,
-                appointment_time ASC`,
+                appointments.doctor_id = ?`,
             [doctorId]
         );
 
@@ -129,11 +133,12 @@ exports.updateDoctorInfo = async (req, res) => {
 };
 
 
-// Accept an Appointment
 exports.acceptAppointment = async (req, res) => {
     try {
         const appointmentId = req.params.id;
         const doctorId = req.session.user.id;
+
+        console.log(`Appointment ID: ${appointmentId}, Doctor ID: ${doctorId}`); // Log appointment and doctor info
 
         // Update the appointment status to 'accepted'
         const [result] = await db.query(
@@ -141,16 +146,17 @@ exports.acceptAppointment = async (req, res) => {
             ['accepted', appointmentId, doctorId]
         );
 
+        console.log('Database query result:', result); // Log the result of the query
+
         if (result.affectedRows > 0) {
-            req.session.message = { type: 'success', content: 'Appointment accepted successfully.' };
+            return res.json({ success: true, message: 'Appointment accepted successfully.' });
         } else {
-            req.session.message = { type: 'error', content: 'Failed to accept appointment.' };
+            console.log('Failed to update the appointment.'); // Log failure
+            return res.json({ success: false, message: 'Failed to accept appointment.' });
         }
 
-        res.redirect('/doctor/dashboard');
     } catch (error) {
-        console.error('Error accepting appointment:', error);
-        req.session.message = { type: 'error', content: 'Internal Server Error.' };
-        res.redirect('/doctor/dashboard');
+        console.error('Error accepting appointment:', error); // Log the error
+        return res.status(500).json({ success: false, message: 'Internal Server Error.' });
     }
 };

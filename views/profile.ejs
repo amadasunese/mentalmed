@@ -1,0 +1,27 @@
+<%- include('header') -%>
+<title>User Profile</title>
+<link rel="stylesheet" href="/static/css/style.css">
+
+<div class="container">
+    <h1>Welcome, <%= user.first_name %> <%= user.last_name %>!</h1>
+
+    <div class="profile-info">
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Role:</strong> <%= user.role %></p>
+
+        <% if (user.role === 'doctor') { %>
+            <h3>Doctor Dashboard</h3>
+            <p>Manage appointments, view patient information, and more.</p>
+        <% } else if (user.role === 'patient') { %>
+            <h3>Patient Dashboard</h3>
+            <p>Book appointments, view your medical records, and consult doctors.</p>
+        <% } else if (user.role === 'admin') { %>
+            <h3>Admin Dashboard</h3>
+            <p>Manage the platform, monitor user activities, and more.</p>
+        <% } %>
+    </div>
+
+    <a href="/logout">Logout</a>
+</div>
+
+<%- include('footer') -%>

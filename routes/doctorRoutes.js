@@ -9,7 +9,7 @@ router.get('/doctorDashboard', ensureDoctor, doctorController.getDoctorDashboard
 // Update Doctor Information
 router.post('/dashboard/update', ensureDoctor, doctorController.updateDoctorInfo);
 
-router.get('/appointments/:id/accept', ensureDoctor, doctorController.acceptAppointment);
+router.get('/acceptappointment', ensureDoctor, doctorController.acceptAppointment);
 
 // View Patient Assessments
 router.get('/assessments', ensureDoctor, doctorController.getPatientAssessments);

@@ -20,6 +20,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 25px
 }
 
 header .logo {
@@ -40,8 +41,13 @@ header .logo {
     gap: 1rem;
 }
 
-.navbar ul li {
+
+/* .navbar ul li {
     margin: 0;
+} */
+.navbar ul li {
+    display: inline-block;
+    position: relative;
 }
 
 .navbar ul li a {
@@ -49,6 +55,13 @@ header .logo {
     text-decoration: none;
     font-weight: bold;
 }
+
+/* .navbar ul li a {
+    text-decoration: none; */
+    /* padding: 10px; */
+    /* display: block; */
+    /* color: white;
+} */
 
 /* Mobile Menu Toggle */
 .menu-checkbox {
@@ -66,6 +79,56 @@ header .logo {
     background-color: white;
     display: block;
     margin: 6px 0;
+}
+.navbar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    /* padding: 10px; */
+    color: white;
+    display: block;
+}
+
+.navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.navbar .dropdown-content li {
+    display: block;
+}
+
+.navbar .dropdown-content li a {
+    padding: 12px 16px;
+    color: #000;
+    text-decoration: none;
+}
+
+.navbar .dropdown-content li a:hover {
+    background-color: #ddd;
+}
+
+.navbar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover > a {
+    color: #007BFF; /* Change color of 'Services' when hovering */
 }
 
 @media (max-width: 768px) {
@@ -187,7 +250,18 @@ header .logo {
 }
 
 #search-input {
-    width: 150px;
+    width: 140px;
+}
+
+#search-button {
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+}
+
+.quicklinks-title {
+    color: white;
+    text-align: left;
 }
 
 /* Responsive Design */
@@ -822,17 +896,7 @@ footer .copyright.pro-links i:hover{
     }
   
   } */
-/* 
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
-  } */
+
 
   .main-content-appointment {
     display: flex;
